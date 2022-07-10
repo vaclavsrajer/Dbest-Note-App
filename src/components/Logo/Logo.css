@@ -1,0 +1,21 @@
+.logo-container{
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    flex: 1;
+    background: linear-gradient(0deg, #EC7160, #EC7160);
+    align-items: center;
+}
+
+.logo-image{
+    width: 70%;
+    margin: auto 0;
+}
+
+.logo-title {
+    margin: 0;
+    align-self: flex-start;
+    justify-content: flex-start;
+}

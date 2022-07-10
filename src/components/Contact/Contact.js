@@ -43,13 +43,13 @@ export default function Contact({ setShowPopup }) {
         });
       }
     }
-    // const nameLettersOnlyRegex = /^[a-zA-Z]+$/;
-    // if (nameLettersOnlyRegex.text(contact.name)) {
-    //   return setError({
-    //     errorOn: true,
-    //     errorMessage: "Name can not have any numbers in it",
-    //   });
-    // }
+    const nameLettersOnlyRegex = /^[a-zA-Z]+$/;
+    if (nameLettersOnlyRegex.test(contact.name)) {
+      return setError({
+        errorOn: true,
+        errorMessage: "Name can not have any numbers in it",
+      });
+    }
     const emailValidationRegex = /^\S+@\S+\.\S+$/;
     if (!contact.email.toLowerCase().match(emailValidationRegex)) {
       return setError({

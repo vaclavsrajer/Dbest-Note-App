@@ -1,0 +1,17 @@
+.external-auth-button-container {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1rem;
+    border: 1px solid rgba(82, 76, 76, 0.38);
+    max-width: 60%;
+    border-radius: 1rem;
+    text-decoration: none;
+    color: rgba(82, 76, 76, 0.38);
+
+}
+
+
+.external-auth-button-container:hover{
+    background-color: rgb(204, 204, 204);
+
+}

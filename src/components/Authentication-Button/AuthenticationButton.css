@@ -1,0 +1,23 @@
+.authentication-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.authentication-button-container button{
+    padding: 0.7rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: #EC7160;
+    color: #FFFFFF;
+    font-size: 20px;
+}
+
+.authentication-button-container button:hover{
+    opacity: 0.7;
+    cursor: pointer;
+}
+.authentication-button-container p{
+    align-self: center;
+}

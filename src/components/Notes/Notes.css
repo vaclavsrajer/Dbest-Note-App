@@ -62,6 +62,7 @@
 .mde-text {
   resize: none !important;
   width: 100vh !important;
+  outline: none !important;
 }
 
 .notes-container {

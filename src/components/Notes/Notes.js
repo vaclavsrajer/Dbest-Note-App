@@ -3,20 +3,37 @@ import Arrow from "../../assets/arrow-left.svg";
 import { nanoid } from "nanoid";
 import Sidebar from "../Sidebar/Sidebar";
 import Editor from "../Editor/Editor";
-import "./Notes.css"
+import "./Notes.css";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  doc,
+  deleteDoc,
+  updateDoc
+} from "firebase/firestore/lite";
+import { db } from "../../firebase/firebase.config";
 
 export default function Notes() {
   const [arrowToggled, setArrowToggled] = useState(false);
-  const [notes, setNotes] = React.useState(
-    () => JSON.parse(localStorage.getItem("notes")) || []
-  );
+  const [notes, setNotes] = React.useState([]);
   const [currentNoteId, setCurrentNoteId] = React.useState(
     (notes[0] && notes[0].id) || ""
   );
 
+  const notesColRef = collection(db, "Note");
+
   React.useEffect(() => {
-    localStorage.setItem("notes", JSON.stringify(notes));
-  }, [notes]);
+    const getNotesData = async () => {
+      const data = await getDocs(notesColRef);
+      setNotes(
+        data.docs.map((doc) => {
+          return { ...doc.data(), id: doc.id };
+        })
+      );
+    };
+    getNotesData();
+  }, [createNewNote, deleteNote, updateNote]);
 
   function toggleArrow() {
     setArrowToggled((prevValue) => !prevValue);
@@ -29,29 +46,34 @@ export default function Notes() {
       body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at arcu dui. ",
       creationDate: new Date().toLocaleDateString("pt-PT"),
     };
-    setNotes((prevNotes) => [newNote, ...prevNotes]);
+    addDoc(notesColRef, newNote)
     setCurrentNoteId(newNote.id);
   }
 
   function updateNote(text) {
-    // Put the most recently-modified note at the top
-    setNotes((oldNotes) => {
-      const newArray = [];
-      for (let i = 0; i < oldNotes.length; i++) {
-        const oldNote = oldNotes[i];
-        if (oldNote.id === currentNoteId) {
-          newArray.unshift({ ...oldNote, body: text });
-        } else {
-          newArray.push(oldNote);
-        }
-      }
-      return newArray;
-    });
+
+    const noteRef = doc(db, "Note", currentNoteId)
+    updateDoc(noteRef, {
+      body: text
+    })
+    // setNotes((oldNotes) => {
+    //   const newArray = [];
+    //   for (let i = 0; i < oldNotes.length; i++) {
+    //     const oldNote = oldNotes[i];
+    //     if (oldNote.id === currentNoteId) {
+    //       newArray.unshift({ ...oldNote, body: text });
+    //     } else {
+    //       newArray.push(oldNote);
+    //     }
+    //   }
+    //   return newArray;
+    // });
   }
 
   function deleteNote(event, noteId) {
     event.stopPropagation();
-    setNotes((allNotes) => allNotes.filter((note) => note.id !== noteId));
+    const noteRef = doc(db, "Note", noteId)
+    deleteDoc(noteRef)
   }
 
   function findCurrentNote() {

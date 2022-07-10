@@ -1,0 +1,29 @@
+.input-half-container {
+    width: 50%;
+}
+
+.input-form-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 50%;
+    margin: auto;
+    gap: 3rem;
+}
+
+.input-middle-line {
+    width: 100%; 
+    text-align: center; 
+    border-bottom: 1px solid #000; 
+    line-height: 0.1em;
+    margin: 10px 0 20px; 
+}
+
+.input-middle-line span { 
+    background:#fff; 
+    padding:0 10px; 
+}
+
+.input-form-title {
+    align-self: flex-start;
+}
